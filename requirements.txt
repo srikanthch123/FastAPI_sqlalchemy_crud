@@ -3,3 +3,5 @@ uvicorn
 SQLAlchemy
 psycopg2
 pydantic
+alembic
+python-dotenv

@@ -1,15 +1,21 @@
-import logging
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
+from fastapi import HTTPException
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-# Set up logging
-logging.basicConfig()
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+user_name = os.getenv('USER_NAME')
+password = os.getenv("PASSWORD")
+host = os.getenv( "HOST" )
+db_name = os.getenv('DB_NAME')
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:1234@localhost/todo_db"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{user_name}:{password}@{host}/{db_name}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
@@ -18,12 +24,9 @@ Base = declarative_base()
 def get_db():
     db = SessionLocal()
     try:
-        # Log a message indicating successful connection
-        logging.info("Connected to database")
+        # Log a message indicating successful connectio
         yield db
     except Exception as e:
-        # Log any exceptions that occur during connection
-        logging.error("Error connecting to database: %s", e)
-        raise
+        raise HTTPException(e)
     finally:
         db.close()

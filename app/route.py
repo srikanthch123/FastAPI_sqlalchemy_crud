@@ -1,7 +1,7 @@
-from fastapi import APIRouter,Depends,Query
-from controller import Users,Tasks
-from schema import UserSchema,TaskSchema
-from db import get_db
+from fastapi import APIRouter,Depends
+from app.controller import Users,Tasks
+from app.schema import UserSchema,TaskSchema
+from app.db import get_db
 
 login_router = APIRouter(tags=["Login"])
 
