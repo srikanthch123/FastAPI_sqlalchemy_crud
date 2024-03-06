@@ -3,6 +3,7 @@ from app.controller import Users,Tasks
 from app.schema import UserSchema,TaskSchema
 from app.db import get_db
 
+
 login_router = APIRouter(tags=["Login"])
 
 @login_router.post('/register-user')

@@ -10,4 +10,5 @@ class UserSchema(BaseModel):
 class TaskSchema(BaseModel):
     title: str
     description : str
+    is_bool : bool
   
